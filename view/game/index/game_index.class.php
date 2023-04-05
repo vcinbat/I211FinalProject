@@ -12,9 +12,9 @@ class GameIndex extends GameIndexView {
     //display page header
     parent::displayHeader("List All Games");
     ?>
-    <div id="main-header"> Game Library</div>
+    <div id="mainHeader"> Game Library</div>
 
-    <div class="grid-container">
+    <div class="gridContainer">
         <?php
         if ($games == 0) {
             echo "No game was found. <br><br><br><br>">
