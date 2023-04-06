@@ -21,4 +21,4 @@ define("BASE_URL", "https://localhost/FinalProject");
  ************************************************************************************/
 
 //define default path for media images
-define("GAME_IMG", "www/img/games");
+define("GAME_IMG", "");

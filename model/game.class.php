@@ -13,12 +13,12 @@ class Game {
 
     //The constructor
     public function __construct($title, $genre, $platform, $release_date, $description, $image) {
-        $this->$title = $title;
-        $this->$genre = $genre;
-        $this->$platform = $platform;
-        $this->$release_date = $release_date;
-        $this->$description = $description;
-        $this->$image = $image;
+        $this->title = $title;
+        $this->genre = $genre;
+        $this->platform = $platform;
+        $this->release_date = $release_date;
+        $this->description = $description;
+        $this->image = $image;
     }
 
     //Get game id

@@ -5,14 +5,14 @@
  * File: game_detail.class.php
  * Description: display game details
  */
-class GameDetails extends GameIndexView {
+class GameDetail extends GameIndexView {
 
     public function display($game, $confirm = "") {
         //display page header
         parent::displayHeader("Game Details");
 
         //retrieve game details by getting get methods
-        $id = $game->getId();
+        $game_id = $game->getGame_id();
         $title = $game->getTitle();
         $genre = $game->getGenre();
         $platform = $game->getPlatform();
@@ -27,7 +27,7 @@ class GameDetails extends GameIndexView {
         <div id="mainHeader">Game Details</div>
         <hr>
     <!-- game details displayed in a table -->
-    <table id="details">
+    <table id="detail">
         <tr>
             <td style="width: 150px;">
                 <img src="<?= $image ?>" alt="<?= $title ?>" />
@@ -41,7 +41,7 @@ class GameDetails extends GameIndexView {
                 <!-- edit game details button -->
                 <div id="buttonGroup">
                     <input type="button" id="editButton" value="Edit"
-                           onclick="window.location.href = '<?=BASE_URL ?>/game/edit/<?= $id ?>'">&nbsp;
+                           onclick="window.location.href = '<?=BASE_URL ?>/game/edit/<?= $game_id ?>'">&nbsp;
                 </div>
             </td>
             <td>

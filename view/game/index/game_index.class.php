@@ -17,11 +17,11 @@ class GameIndex extends GameIndexView {
     <div class="gridContainer">
         <?php
         if ($games == 0) {
-            echo "No game was found. <br><br><br><br>">
+            echo "No game was found. <br><br><br><br>";
         } else {
         //displays games in a grid; six games per row
         foreach ($games as $game) {
-            $id = $game->getId();
+            $game_id = $game->getGame_id();
             $title = $game->getTitle();
             $genre = $game->getGenre();
             $platform = $game->getPlatform();
@@ -32,7 +32,7 @@ class GameIndex extends GameIndexView {
                 $image = BASE_URL . "/" . GAME_IMG . $image;
             }
 
-            echo "<div class='item'><p><a href='", BASE_URL, "/game/detail/$id'><img src='" . $image . "'></a>
+            echo "<div class='item'><p><a href='", BASE_URL, "/game/detail/$game_id'><img src='" . $image . "'></a>
             <span>$title<br>Genre $genre<br>Platform $platform<br>" . $release_date->format('m-d-y') . "</span></p></div>";
             }
         }
