@@ -117,7 +117,7 @@ class GameModel {
     *Return true if succeeded; false otherwise.
     */
 
-    public function update_movie($game_id) {
+    public function update_game($game_id) {
         //If the script did not receive post data, display an error message and then terminite the script immediately
         if (!filter_has_var(INPUT_POST, 'title') ||
             !filter_has_var(INPUT_POST, 'genre') ||
