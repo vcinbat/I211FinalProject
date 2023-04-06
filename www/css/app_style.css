@@ -1,0 +1,363 @@
+/*
+  Document: app_style.css
+  Author: Val Cinbat
+  Description: External style sheet for the application.
+*/
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    text-align: center;
+    background-color: #f2f2f2;
+    color: #333;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 20px;
+    line-height: 1;
+}
+
+p {
+    margin: 0 0 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 0.4em;
+}
+
+hr {
+    margin-bottom: 3px;
+    background-color: #bbb;
+    color: #bbb;
+    height: 1px;
+    border: none;
+    clear: both;
+}
+
+#top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -10;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(84, 79, 236, 0.75);
+    width: 100%;
+    height: 160px;
+}
+
+#wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -4em;
+    text-align: left;
+    max-width: 960px;
+    padding: 0 1rem;
+}
+
+#footer {
+    font-size: 80%;
+    font-family: 'Helvetica Neue', sans-serif;
+    text-align: center;
+    background-color: #eeeeee;
+    margin-top: 2rem;
+    padding: 2rem 0;
+}
+
+#push {
+    height: 4.8em;
+    clear: both;
+}
+
+#banner {
+    height: 180px;
+}
+
+#banner #left {
+    float: left;
+    width: 80%;
+    text-align: left;
+    margin-top: 30px;
+    padding-left: 1rem;
+}
+
+#banner #right {
+    float: left;
+    width: 40%;
+    text-align: center;
+}
+
+#main-header {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ff6600;
+}
+
+span.rcd-numbers {
+    color: #999;
+    font-size: 0.8rem;
+    display: inline-block;
+    margin-top: 0.5rem;
+    margin-left: 0.3rem;
+}
+
+.grid-container {
+    margin: 2rem auto;
+    width: 100%;
+    max-width: 960px;
+    border: 1px solid #eee;
+    background-color: #fff;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.item {
+    padding: 1rem;
+    background-color: #fff;
+    border: 10px solid #eee;
+    text-align: center;
+}
+
+.item:hover {
+    border: 1px solid #ff6600;
+}
+
+.item > p {
+    background-color: #fff;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    color: #333;
+    width: 126px;
+    height: 260px;
+    overflow: hidden;
+    margin: 1rem auto;
+}
+
+/* styles for media items */
+.item > p img {
+    width: 126px;
+    height: 178px;
+    border: none;
+}
+
+.item > p a {
+    text-decoration: none;
+}
+
+.item > p span {
+    margin-top: 2px;
+    display: inline-block;
+    padding-left: 3px;
+    font-size: 0.7em;
+    font-family: cursive;
+    color: #555;
+}
+
+/* styles for media detail */
+table#detail {
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 1px solid #bbb;
+    margin: 10px 0 5px;
+}
+
+#detail img {
+    width: 220px;
+}
+
+#detail td {
+    position: relative;
+    vertical-align: top;
+    padding: 2px 12px 15px 0;
+}
+
+#detail p {
+    padding: 3px;
+}
+
+#detail #button-group,
+#detail #confirm-message {
+    position: absolute;
+    bottom: 20px;
+}
+
+#detail #confirm-message {
+    color: red;
+}
+
+#detail .media-description {
+    max-height: 120px;
+    overflow: auto;
+}
+
+/* styles for the search bar */
+#searchbar {
+    display: flex;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    overflow: hidden;
+    max-width: 250px;
+    margin: 1px auto;
+}
+
+#searchbar input[type="text"] {
+    flex: 1;
+    padding: 5px;
+    font-size: 0.8em;
+    color: #444;
+    border: none;
+}
+
+#searchbar input[type="text"]:focus {
+    outline: none;
+}
+
+#searchbar input[type="submit"] {
+    padding: 5px;
+    text-align: center;
+    background-color: #eee;
+    border: none;
+}
+
+#searchbar input[type="submit"]:hover {
+    background-color: #c7f2fd;
+}
+
+
+/* styles for the suggestion div block and the spans in it */
+#suggestionDiv {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    right: -1px;
+    background-color: #fff;
+    font-size: 0.85em;
+    z-index: 9999;
+    border-radius: 0 0 4px 4px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 2px 10px 12px 2px rgba(0, 0, 0, 0.175);
+}
+
+#suggestionDiv span {
+    display: block;
+    padding: 4px 10px;
+    cursor: default;
+    min-width: 178px;
+    white-space: nowrap;
+}
+
+#suggestionDiv span:hover {
+    background-color: #F5DEB3;
+}
+
+/* styles for sorting select list */
+.sorting {
+    display: inline-block;
+    float: right;
+}
+
+.sorting select {
+    font-size: 0.8em;
+    color: #666;
+}
+
+/* styles for pagination buttons */
+.pagination {
+    float: right;
+    margin: 0;
+}
+
+.pagination select {
+    color: #666;
+}
+
+.pagination ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    margin-left: 30px;
+}
+
+.pagination li {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.pagination li a {
+    display: inline-block;
+    text-decoration: none;
+    border: 1px solid #999;
+    text-align: center;
+    font-size: 0.7em;
+    padding: 1px 6px;
+    border-radius: 2px;
+    min-width: 12px;
+    height: 14px;
+    background-color: #fff;
+    color: #333;
+    transition: all 0.2s ease-in-out;
+}
+
+.pagination li a.active {
+    background-color: #eee;
+}
+
+.pagination li a.enabled {
+    font-weight: bold;
+}
+
+.pagination li a.disabled {
+    pointer-events: none;
+    color: #bbb;
+}
+
+.pagination li a:hover,
+.pagination li a:focus {
+    color: #ff6600;
+    border-color: #ff6600;
+}
+
+.new-media form {
+    /*width: 800px; border: 1px solid #bbb; margin-top: 10px; padding: 10px;*/
+}
+
+.new-media input[type="text"],
+.new-media textarea {
+    border: 1px solid #bbb;
+    color: #333;
+    border-radius: 2px;
+    font-size: 13px;
+    padding: 8px;
+    margin-top: 8px;
+}
+
+.new-media input:required:invalid:focus,
+.new-media textarea:required:invalid:focus {
+    box-shadow: 0 0 0 2px rgba(255, 102, 0, 0.5);
+    outline: none;
+}
+
+.new-media input:required:valid:focus,
+.new-media textarea:required:valid:focus {
+    box-shadow: 0 0 0 2px rgba(0, 128, 0, 0.5);
+    outline: none;
+}
+

@@ -12,7 +12,7 @@ class GameIndex extends GameIndexView {
     //display page header
     parent::displayHeader("List All Games");
     ?>
-    <div id="mainHeader"> Game Library</div>
+    <div id="mainHeader"> Game Inventory</div>
 
     <div class="gridContainer">
         <?php
@@ -33,7 +33,10 @@ class GameIndex extends GameIndexView {
             }
 
             echo "<div class='item'><p><a href='", BASE_URL, "/game/detail/$game_id'><img src='" . $image . "'></a>
-            <span>$title<br>Genre $genre<br>Platform $platform<br>" . $release_date->format('m-d-y') . "</span></p></div>";
+            <span> $title<br>
+                Genre: $genre<br>
+                Platform: $platform<br>
+                Release Date: " . $release_date->format('m-d-y') . "</span></p></div>";
             }
         }
         ?>
