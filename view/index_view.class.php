@@ -16,7 +16,7 @@ class IndexView {
         <head>
             <title> <?php echo $page_title ?> </title>
             <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
-            <link rel='shortcut icon' href='<?= BASE_URL ?>/www/img/favicon.ico' type='image/x-icon' />
+            <!-- <link rel='shortcut icon' href='/www/img/favicon.ico' type='image/x-icon' /> -->
             <link type='text/css' rel='stylesheet' href='<?= BASE_URL ?>/www/css/app_style.css' />
             <script>
                 //create the JavaScript variable for the base url
@@ -29,11 +29,9 @@ class IndexView {
         <div id="banner">
             <a href="<?= BASE_URL ?>/index.php" style="text-decoration: none" title="Video Game World">
                 <div id="left">
-                    <span style='color: #000; font-size: 36pt; font-weight: bold; vertical-align: top'>
-                                    Welcome to Video Game World!
-                                </span>
-                    <div style='color: #000; font-size: 14pt; font-weight: bold'>An interactive application designed with MVC pattern</div>
+                    <span>Welcome to Video Game World!</span>
                 </div>
+                <div id="left1">An interactive application designed with MVC pattern</div>
             </a>
         </div>
         <?php
@@ -46,6 +44,7 @@ class IndexView {
         <div id="push"></div>
         </div>
         <div id="footer"><br>&copy 2023 Video Game World. All Rights Reserved.</div>
+        <script type="text/javascript" src="<?= BASE_URL ?>/www/js/ajax_autosuggestion.js"></script>
         </body>
         </html>
         <?php

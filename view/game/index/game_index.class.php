@@ -26,7 +26,6 @@ class GameIndex extends GameIndexView {
             $genre = $game->getGenre();
             $platform = $game->getPlatform();
             $release_date =  new \DateTime($game->getRelease_date());
-            $description = $game->getDescription();
             $image = $game->getImage();
             if (strpos ($image, "http://") === false AND strpos($image, "https://") === false) {
                 $image = BASE_URL . "/" . GAME_IMG . $image;

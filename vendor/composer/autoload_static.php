@@ -16,10 +16,18 @@ class ComposerStaticInit5559211f2324363f4a4906dab9939b50
         'Game' => __DIR__ . '/../..' . '/model/game.class.php',
         'GameController' => __DIR__ . '/../..' . '/controller/game_controller.php',
         'GameDetail' => __DIR__ . '/../..' . '/view/game/detail/game_detail.class.php',
+        'GameEdit' => __DIR__ . '/../..' . '/view/game/edit/game_edit.class.php',
+        'GameError' => __DIR__ . '/../..' . '/view/game/error/game_error.class.php',
         'GameIndex' => __DIR__ . '/../..' . '/view/game/index/game_index.class.php',
         'GameIndexView' => __DIR__ . '/../..' . '/view/game/game_index_view.class.php',
         'GameModel' => __DIR__ . '/../..' . '/model/game_model.class.php',
+        'GameSearch' => __DIR__ . '/../..' . '/view/game/search/game_search.class.php',
         'IndexView' => __DIR__ . '/../..' . '/view/index_view.class.php',
+        'User' => __DIR__ . '/../..' . '/model/user.class.php',
+        'UserIndex' => __DIR__ . '/../..' . '/view/user/index/user_index.class.php',
+        'UserModel' => __DIR__ . '/../..' . '/model/user_model.class.php',
+        'WelcomeController' => __DIR__ . '/../..' . '/controller/welcome_controller.php',
+        'WelcomeIndex' => __DIR__ . '/../..' . '/view/welcome/welcome_index.class.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

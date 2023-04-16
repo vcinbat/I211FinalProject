@@ -6,8 +6,8 @@
  * Description: The game model
  */
 
-class GameModel {
-
+class GameModel
+{
     //Private data members
     private $db;
     private $dbConnection;
@@ -91,7 +91,8 @@ class GameModel {
     * and returns a game object. Return false if failed.
     */
 
-    public function view_game($game_id) {
+    public function view_game($game_id)
+    {
         //The select sql statement
         $sql = "SELECT * FROM " . $this->tblGames . " WHERE game_id='$game_id'";
 
@@ -113,11 +114,12 @@ class GameModel {
         return false;
     }
 
-   /*The update_movie method updates an existing movie in the database. Details of the movie are posted in a form.
-    *Return true if succeeded; false otherwise.
-    */
+    /*The update_movie method updates an existing movie in the database. Details of the movie are posted in a form.
+     *Return true if succeeded; false otherwise.
+     */
 
-    public function update_game($game_id) {
+    public function update_game($game_id)
+    {
         //If the script did not receive post data, display an error message and then terminite the script immediately
         if (!filter_has_var(INPUT_POST, 'title') ||
             !filter_has_var(INPUT_POST, 'genre') ||
@@ -129,13 +131,14 @@ class GameModel {
             return false;
         }
 
-        //Retrieve data for the new game; data are sanitized and escaped for security.
-        $title = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING)));
-        $genre = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'genre', FILTER_SANITIZE_STRING)));
-        $platform = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'platform', FILTER_SANITIZE_STRING)));
+        //Retrieve data for the game update; data are sanitized and escaped for security.
+        $title = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS)));
+        $genre = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'genre', FILTER_SANITIZE_FULL_SPECIAL_CHARS)));
+        $platform = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'platform', FILTER_SANITIZE_FULL_SPECIAL_CHARS)));
         $release_date = $this->dbConnection->real_escape_string(filter_input(INPUT_POST, 'release_date', FILTER_DEFAULT));
-        $description = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING)));
-        $image = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'image', FILTER_SANITIZE_STRING)));
+        $description = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS)));
+        $image = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'image', FILTER_SANITIZE_FULL_SPECIAL_CHARS)));
+
 
         //Query string for update
         $sql = "UPDATE " . $this->tblGames .
@@ -147,16 +150,16 @@ class GameModel {
     }
 
     //Search the database for games that match words in titles. Return an array of games if succeeded; false otherwise.
-    public function search_game($terms) {
+    public function search_game($terms)
+    {
         $terms = explode(" ", $terms); //Explode multiple terms into an array
         //Select statement for AND search
-        $sql = "SELECT * FROM " . $this->tblGames;
+        $sql = "SELECT * FROM " . $this->tblGames . " WHERE title LIKE '%" . $terms[0] . "%'";
 
-        foreach ($terms as $term) {
-            $sql .= " AND title LIKE '%" . $term . "%'";
+        //Add the rest of the terms to the query
+        for ($i = 1; $i < count($terms); $i++) {
+            $sql .= " AND title LIKE '%" . $terms[$i] . "%'";
         }
-
-        $sql .= ")";
 
         //Execute the query
         $query = $this->dbConnection->query($sql);
