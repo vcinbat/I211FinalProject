@@ -29,11 +29,13 @@ class IndexView {
         <div id="banner">
             <a href="<?= BASE_URL ?>/index.php" style="text-decoration: none" title="Video Game World">
                 <div id="left">
-                    <span>Welcome to Video Game World!</span>
+                    Welcome to Video Game World!
                 </div>
-                <div id="left1">An interactive application designed with MVC pattern</div>
-            </a>
+                <a href="<?= BASE_URL ?>/index.php">
+                    <img id="logo" src="<?= BASE_URL ?>/www/img/misc/logo.png"/>
+                </a>
         </div>
+        <div id="left1">An interactive application designed with MVC pattern</div>
         <?php
     }//end of displayHeader function
 

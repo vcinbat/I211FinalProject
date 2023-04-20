@@ -85,45 +85,60 @@ class GameController
         $view->display($game, $confirm);
     }
 
-    //search games
     public function search() {
-        //retrieve query terms from search form
+        // retrieve query terms from search form
         $query_terms = trim($_GET['query-terms']);
 
-        //if search term is empty, list all games
+        // if search term is empty, list all games
         if ($query_terms == "") {
             $this->index();
-        }
-
-        //search the database for matching games
-        $games = $this->game_model->search_game($query_terms);
-
-        if ($games === false) {
-            //handle error
-            $message = "An error has occurred.";
-            $this->error($message);
             return;
         }
-        //display matched games
+
+        // split query terms into individual keywords
+        $keywords = preg_split('/\s+/', $query_terms);
+
+        // search the database for each keyword
+        $matches = array();
+        foreach ($keywords as $keyword) {
+            $games = $this->game_model->search_game($keyword);
+            if ($games === false) {
+                // handle error
+                $message = "An error has occurred.";
+                $this->error($message);
+                return;
+            }
+            $matches[] = $games;
+        }
+
+        // find the intersection of the results
+        $result = call_user_func_array('array_intersect', $matches);
+
+        // display matched games
         $search = new GameSearch();
-        $search->display($query_terms, $games);
+        $search->display($query_terms, $result);
     }
 
-    //autosuggestion
     public function suggest($terms) {
-        //retrieve query terms
-        $query_terms = urldecode(trim($terms));
-        $games = $this->game_model->search_game($query_terms);
+        // split query terms into individual keywords
+        $query_terms = preg_split('/\s+/', urldecode(trim($terms)));
 
-        //retrieve all game titles and store them in an array
+        // retrieve suggestions for each keyword
         $titles = array();
-        if ($games) {
-            foreach ($games as $game) {
-                $titles[] = $game->getTitle();
+        foreach ($query_terms as $query_term) {
+            $games = $this->game_model->search_game($query_term);
+            if ($games) {
+                foreach ($games as $game) {
+                    $titles[] = $game->getTitle();
+                }
             }
         }
+
+        // remove duplicates and return suggestions as a JSON-encoded array
+        $titles = array_unique($titles);
         echo json_encode($titles);
     }
+
 
     //handle an error
     public function error($message) {
