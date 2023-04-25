@@ -92,6 +92,10 @@ hr {
     text-align: center;
     margin-top: -30px;
 }
+#banner #right {
+    margin-top: -30px;
+}
+
 
 #left1 {
     font-family: 'Helvetica Neue', sans-serif;
@@ -114,14 +118,35 @@ hr {
     text-transform: uppercase;
     letter-spacing: 2px;
     text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+}
+
+/* New User and Login buttons */
+#right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    color: #252525;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-right: 30px;
+    cursor: pointer;
+    transition: background-color 0.10s ease;
 
 }
 
-#banner #right {
-    float: left;
-    width: 40%;
-    text-align: center;
+.button:hover {
+    background-color: rgba(255, 142, 55, 0.89);
 }
+
 
 /* Main header of all the pages */
 #mainHeader {

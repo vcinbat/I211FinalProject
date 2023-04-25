@@ -8,50 +8,59 @@
 
 class UserModel
 {
+    //Private data members
+    static private $_instance = NULL;
     private $db;
     private $dbConnection;
+    private $tblUsers;
 
-    public function __construct()
+    //To use singleton pattern, this constructor is made private. To get an instance of the class, the getUserModel method must be called.
+    private function __construct()
     {
-        $this->db = Database::getInstance();
+        $this->db = Database::getDatabase();
         $this->dbConnection = $this->db->getConnection();
+        $this->tblUsers = $this->db->getUsersTable();
+
+        //Escapes special characters in a string for use in an SQL statement. This stops SQL inject in POST vars.
+        foreach ($_POST as $key => $value) {
+            $_POST[$key] = $this->dbConnection->real_escape_string($value);
+        }
+
+        //Escapes special characters in a string for use in an SQL statement. This stops SQL Injection in GET vars
+        foreach ($_GET as $key => $value) {
+            $_GET[$key] = $this->dbConnection->real_escape_string($value);
+        }
+    }
+
+    //Static method to ensure there is just one UserModel instance
+    public static function getUserModel()
+    {
+        if (self::$_instance == NULL) {
+            self::$_instance = new UserModel();
+        }
+        return self::$_instance;
     }
 
     public function add_user()
     {
-        $password = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
-        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-        $role_id = 2; // default role is regular user
-        // check if a role was submitted
-        if (isset($_POST['role']) && is_numeric($_POST['role'])) {
-            $role_id = intval($_POST['role']);
-        }
-        $sql = "INSERT INTO " . $this->db->getUserTable() . " (role_id, username, password, email) VALUES('$role_id', '$username', '$hashed_password', '$email')";
-        if ($this->dbConnection->query($sql) === TRUE) {
+        // retrieve password from the registration form
+        // updated code using filter_var with FILTER_SANITIZE_STRING filter
+        $username = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'username', FILTER_DEFAULT) ?? ''));
+        $password = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'password', FILTER_DEFAULT) ?? ''));
+        $email = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'email', FILTER_DEFAULT) ?? ''));
+
+        // set the default role_id
+        $role_id = 2;
+
+        // sanitize input data and construct the SQL query
+        $sql = "INSERT INTO " . $this->db->getUsersTable() . " (role_id, username, password, email) VALUES ('$role_id', '$username', '$password', '$email')";
+
+        // execute the query and return true if successful or false if failed
+        if ($this->dbConnection->query($sql) === true) {
             return true;
         } else {
             return false;
         }
-    }
-
-    public function verify_user()
-    {
-        $username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
-        $password = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
-        $sql = "SELECT password, role_title FROM " . $this->db->getUserTable() . " JOIN " . $this->db->getRoleTable() . " ON " . $this->db->getUserTable() . ".role_id = " . $this->db->getRoleTable() . ".role_id WHERE username='$username'";
-        $query = $this->dbConnection->query($sql);
-        if ($query and $query->num_rows > 0) {
-            $result_row = $query->fetch_assoc();
-            $hash = $result_row['password'];
-            if (password_verify($password, $hash)) {
-                setcookie("user", $username);
-                setcookie("role", $result_row['role_title']);
-                return true;
-            }
-        }
-        return false;
     }
 
     public function logout()
@@ -61,16 +70,40 @@ class UserModel
         return true;
     }
 
-    public function get_roles()
+    public function delete_user($user_id)
     {
-        $sql = "SELECT * FROM " . $this->db->getRoleTable();
-        $query = $this->dbConnection->query($sql);
-        $roles = array();
-        if ($query and $query->num_rows > 0) {
-            while ($row = $query->fetch_assoc()) {
-                $roles[] = $row;
-            }
+        $sql = "DELETE FROM " . $this->db->getUsersTable() . " WHERE user_id = $user_id";
+        if ($this->dbConnection->query($sql) === TRUE) {
+            return true;
+        } else {
+            return false;
         }
-        return $roles;
+    }
+
+    //verify username and password against a database record
+    public function verify_user()
+    {
+        //retrieve username and password
+        $username = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'username', FILTER_DEFAULT) ?? ''));
+        $password = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'password', FILTER_DEFAULT) ?? ''));
+
+        //sql statement to filter the users table data with a username
+        $sql = "SELECT password FROM " . $this->db->getUsersTable() . " WHERE username='$username'";
+
+        //execute the query
+        $query = $this->dbConnection->query($sql);
+
+        //if user exists and password matches, set a temporary cookie
+        if ($query and $query->num_rows > 0) {
+            setcookie("user", $username);
+            return true;
+        }
+
+        return false;
     }
 }
+
+
+
+        
+

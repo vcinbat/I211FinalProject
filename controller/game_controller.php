@@ -112,12 +112,25 @@ class GameController
         }
 
         // find the intersection of the results
-        $result = call_user_func_array('array_intersect', $matches);
+        $result = array();
+        foreach ($matches[0] as $game) {
+            $in_all = true;
+            for ($i = 1; $i < count($matches); $i++) {
+                if (!in_array($game, $matches[$i])) {
+                    $in_all = false;
+                    break;
+                }
+            }
+            if ($in_all) {
+                $result[] = $game;
+            }
+        }
 
         // display matched games
         $search = new GameSearch();
         $search->display($query_terms, $result);
     }
+
 
     public function suggest($terms) {
         // split query terms into individual keywords
@@ -138,7 +151,6 @@ class GameController
         $titles = array_unique($titles);
         echo json_encode($titles);
     }
-
 
     //handle an error
     public function error($message) {

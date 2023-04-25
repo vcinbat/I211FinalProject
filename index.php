@@ -5,6 +5,7 @@
  * File: index.php
  * Description: The bootstrap file. Loads the dispatcher
  */
+
 //load application settings
 require_once ("application/config.php");
 

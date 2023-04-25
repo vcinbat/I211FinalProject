@@ -68,7 +68,7 @@ class Database
     }
 
     //returns the name of the table storing books
-    public function getRoles() {
+    public function getRolesTable() {
         return $this->param['tblRoles'];
     }
 }
